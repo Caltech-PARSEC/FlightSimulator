@@ -1,3 +1,4 @@
+import sensors
 class Rocket:
     def __init__(self):
         self.thrust = 4000 #newtons

@@ -1,3 +1,4 @@
+import sensors
 class Simulator:
     def __init__(self):
         #initialize self.sensors here
