@@ -1,21 +1,13 @@
-def run():
-    '''
-    Reads data from a file 'data.txt' where each line is of the form
-    'key:value' without quotes, and returns a dictionary of the data.
-    '''
+from rocket import Rocket
+from simulator import Simulator
 
-    file = open('data.txt')
+def main():
+    rocket = Rocket()
+    simulator = Simulator()
 
-    data = {}
-    for line in file:
-        # Remove the newline character from line
-        line = line[:-1]
+    while not simulator.done():
+        simulator.update(rocket.get_thrust())
+        rocket.update(simulator.get_sim_sensors())
 
-        # Get the key and value
-        pos = line.index(':')
-        key = line[:pos]
-        val = line[pos + 1:]
-
-        data[key] = val
-
-    return data
+if __name__ == '__main__':
+    main()
