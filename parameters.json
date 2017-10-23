@@ -1,0 +1,12 @@
+{
+  "launch_height": 0,
+  "launch_mass": 0,
+  "propellent_mass": 0,
+  
+  "rocket_drag_coef": 0,
+  "parachute_drag_coef": 0,
+
+  "parachute_area": 0,
+  "dt": 0.2
+  
+}
