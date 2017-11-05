@@ -32,6 +32,8 @@ class Simulator:
 
         self.mass = self.launch_mass
 
+        self.sensors = {'altitude': self.altitude, 'dt': self.dt}
+
     def getFuelRemaining(self, time):
         fuelRemaining = self.initial_fuel
         for interval in numpy.arange(0.0, time, self.dt): #dt gotten from param file
