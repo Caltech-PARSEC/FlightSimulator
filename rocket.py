@@ -16,13 +16,12 @@ class Rocket:
         self.altitude = sensors.get(altitude)
         if self.__get_height_if_cut() >= HEIGHT_GOAL :
             self.thrust=0
-    def __get_stop(self):
-        if sensors.get('altitude')>HEIGHT_GOAL:
-            self.thrust=0
+
     def __get_height_if_cut(self):
         v=_get_velocity()
         t=v/scipy.g
         return -scipy.g/2.0*(t**2)+v*t+self.altitude
+
     def __get_velocity(self):
         velocity_sum=0
         for i in range(1,len(velocities)):
