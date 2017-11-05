@@ -2,7 +2,7 @@
 class Simulator:
     def __init__(self, param_file='parameters.json'):
 		#initialize self.sensors here
-        self.sensors = {'altitude': 0}
+        
         self.load_data(param_file)
 
     def load_data(self, param_file):
