@@ -37,7 +37,7 @@ class Simulator:
 
         self.sensors = {'altitude': self.altitude, 'dt': self.dt}
 
-    def getFuelRemaining(self, time):
+    def get_fuel_remaining(self, time):
         fuelRemaining = self.initial_fuel
         for interval in numpy.arange(0.0, time, self.dt): #dt gotten from param file
             fuelRemaining -= self.getFuelRate(interval) * self.dt
@@ -46,15 +46,15 @@ class Simulator:
                 return
         return fuelRemaining
 
-    def getAltitude(self, time):
+    def get_altitude(self, time):
         self.updateAltitude(time)
         return self.altitude
 
-    def updateAltitude(self, time):
+    def update_altitude(self, time):
         self.altitude = self.launch_altitude + self.velocity * time
 
     def update_velocity(self, thrust, air_density, area):
-        g = 9.807 
+        g = 9.8 
         drag = area * self.rocket_drag_coeff * air_density * \
                (self.velocity ** 2) / 2
         f_grav = self.mass * g
