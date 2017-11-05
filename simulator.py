@@ -40,7 +40,7 @@ class Simulator:
     def getFuelRemaining(self, time):
         fuelRemaining = self.initial_fuel
         for interval in numpy.arange(0.0, time, self.dt): #dt gotten from param file
-            fuelRemaining -= self.getFuelRate(interval) * self.dt
+            fuelRemaining -= self.get_fuel_rate(interval) * self.dt
             if fuelRemaining <= 0:
                 print("Out of fuel at height:" + str(self.getAltitude(interval)))
                 return
@@ -49,6 +49,9 @@ class Simulator:
     def getAltitude(self, time):
         self.updateAltitude(time)
         return self.altitude
+
+    def get_fuel_rate(self, time):
+        return 5
 
     def updateAltitude(self, time):
         self.altitude = self.launch_altitude + self.velocity * time
