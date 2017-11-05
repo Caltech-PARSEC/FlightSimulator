@@ -5,6 +5,7 @@ class Rocket:
     def __init__(self):
         self.thrust = 4000 #newtons
     def update(self, sensors):
-        if(sensors.get('altitude')>45000*)
+        if(sensors.get('altitude')>HEIGHT_GOAL)
+            self.thrust=0
     def get_thrust(self):
         return self.thrust
