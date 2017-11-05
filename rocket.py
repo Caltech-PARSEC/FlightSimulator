@@ -1,6 +1,9 @@
 import time
 import scipy
 class Rocket:
+    """Implements controls for the rocket to control its ascent. Can work
+        either using simulated or real sensor data passed to the update function.
+    """
     FT_TO_M= 3.28084
     HEIGHT_GOAL = 45000.0 * FT_TO_M
     VELOCITY_AVERAGING_NUMBER = 5
