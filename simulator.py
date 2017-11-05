@@ -1,8 +1,11 @@
+import os
+import json
+import numpy
 
 class Simulator:
     def __init__(self, param_file='parameters.json'):
 		#initialize self.sensors here
-        self.sensors = {'altitude': 0}
+        
         self.load_data(param_file)
 
     def load_data(self, param_file):
@@ -32,21 +35,39 @@ class Simulator:
 
         self.mass = self.launch_mass
 
-    def getFuelRemaining(self, time):
+        self.sensors = {'altitude': self.altitude, 'dt': self.dt}
+
+    def get_fuel_remaining(self, time):
         fuelRemaining = self.initial_fuel
         for interval in numpy.arange(0.0, time, self.dt): #dt gotten from param file
-            fuelRemaining -= self.getFuelRate(interval) * self.dt
+            fuelRemaining -= self.get_fuel_rate(interval) * self.dt
             if fuelRemaining <= 0:
                 print("Out of fuel at height:" + str(self.getAltitude(interval)))
                 return
         return fuelRemaining
 
-    def getAltitude(self, time):
+    def get_altitude(self, time):
         self.updateAltitude(time)
         return self.altitude
 
+
+    def get_fuel_rate(self, time):
+        return 5
+
     def updateAltitude(self, time):
+
+    def update_altitude(self, time):
+
         self.altitude = self.launch_altitude + self.velocity * time
+
+    def update_velocity(self, thrust, air_density, area):
+        g = 9.8 
+        drag = area * self.rocket_drag_coeff * air_density * \
+               (self.velocity ** 2) / 2
+        f_grav = self.mass * g
+
+        delta_v = (thrust - drag - f_grav) * self.dt / self.mass
+        self.velocity += delta_v
 
     def get_sim_sensors(self):
         return self.sensors
