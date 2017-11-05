@@ -1,7 +1,7 @@
-
 import os
 import json
 import numpy
+
 class Simulator:
     def __init__(self, param_file='parameters.json'):
 		#initialize self.sensors here
