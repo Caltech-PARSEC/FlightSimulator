@@ -1,8 +1,11 @@
 
+import os
+import json
+import numpy
 class Simulator:
     def __init__(self, param_file='parameters.json'):
 		#initialize self.sensors here
-        self.sensors = {'altitude': 0}
+        
         self.load_data(param_file)
 
     def load_data(self, param_file):
@@ -31,6 +34,8 @@ class Simulator:
         self.initial_fuel = 5
 
         self.mass = self.launch_mass
+
+        self.sensors = {'altitude': self.altitude, 'dt': self.dt}
 
     def getFuelRemaining(self, time):
         fuelRemaining = self.initial_fuel
