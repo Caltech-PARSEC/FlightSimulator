@@ -50,14 +50,14 @@ class Simulator:
         self.updateAltitude(time)
         return self.altitude
 
-<<<<<<< HEAD
+
     def get_fuel_rate(self, time):
         return 5
 
     def updateAltitude(self, time):
-=======
+
     def update_altitude(self, time):
->>>>>>> 75ebf986e456d2b8d403f90da10631808a7bc9b3
+
         self.altitude = self.launch_altitude + self.velocity * time
 
     def update_velocity(self, thrust, air_density, area):
