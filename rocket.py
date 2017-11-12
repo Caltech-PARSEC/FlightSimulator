@@ -19,12 +19,30 @@ class Rocket:
         self.altitude=0.0
 
     def update(self, sensors):
+        '''
+        Updates the rocket's altitude and thrust. If the expected height that would be reached
+        if thrust was set to 0 is at least the goal height, thrust is set to 0.
+
+        Arguments:
+            sensors: A dictionary contianing the key 'altitude'.
+        Return value: None
+        '''
+
         self.last_altitude=self.altitude
         self.altitude = sensors.get('altitude')
         if self.__get_height_if_cut__(sensors) >= self.HEIGHT_GOAL :
             self.thrust=0
 
     def __get_height_if_cut__(self, sensors):
+        '''
+        Estimates the hieght the rocket would reach if thrust was set to zero. Currently it
+        only accounts for gravity.
+
+        Arguments:
+            sensors: A dictionary containing the key 'dt' for a small time change.
+        Return value: A float representing the estimated max hieght if thrust = 0
+        '''
+
         v = self.__get_velocity__(sensors)
         t = v / constants.g
         return -constants.g / 2.0 * (t ** 2) + v * t + self.altitude
