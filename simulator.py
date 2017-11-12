@@ -43,17 +43,23 @@ class Simulator:
         return fuel_remaining 
 
     def get_altitude(self):
+        ''' Returns current altitude by retrieving from the altitudes list'''
         return self.altitudes[len(self.altitudes)]
 
     def get_fuel_rate(self, time):
+        '''Returns current fuel rate'''
         return 5
 
     def update_altitude(self):
+        '''Updates the altitude for time interval dt with current velocity. Adds current altitude to the
+        altitudes list, and to the sensors dictionary'''
+
         self.altitude = self.altitudes[-1] + self.velocity * self.dt
         self.altitudes.append(self.altitude)
         self.sensors['altitudes'] = self.altitude
 
     def update_velocity(self, thrust, air_density, area):
+        '''Updates the velocity of the rocket for time interval dt'''
         drag = area * self.rocket_drag_coef * air_density * (self.velocity ** 2) / 2
         f_grav = self.mass * 9.8
 
