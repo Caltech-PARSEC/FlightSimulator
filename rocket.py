@@ -1,23 +1,27 @@
 import time
 import scipy
+
 class Rocket:
-    """Implements controls for the rocket to control its ascent. Can work
-        either using simulated or real sensor data passed to the update function.
     """
+    Implements controls for the rocket to control its ascent. Can work
+    either using simulated or real sensor data passed to the update function.
+    """
+
     FT_TO_M= 3.28084
     HEIGHT_GOAL = 45000.0 * FT_TO_M
     VELOCITY_AVERAGING_NUMBER = 5
+
     def __init__(self, simulated):
         self.thrust = 4000.0 #newtons
-        self.first_update=True
-        self.simulated=simulated
-        velocities = [0.0]*VELOCITY_AVERAGING_NUMBER
+        self.first_update = True
+        self.simulated = simulated
+        velocities = [0.0] * self.VELOCITY_AVERAGING_NUMBER
         self.altitude=0.0
 
     def update(self, sensors):
         self.last_altitude=self.altitude
         self.altitude = sensors.get(altitude)
-        if self.__get_height_if_cut() >= HEIGHT_GOAL :
+        if self.__get_height_if_cut() >= self.HEIGHT_GOAL :
             self.thrust=0
 
     def __get_height_if_cut(self):
@@ -46,5 +50,6 @@ class Rocket:
             self.time_last=self.time
             self.time=time.perf_counter()
             self.dt=self.time-self.time_last
+
     def get_thrust(self):
         return self.thrust
