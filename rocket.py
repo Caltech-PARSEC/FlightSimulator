@@ -21,27 +21,28 @@ class Rocket:
     def update(self, sensors):
         self.last_altitude=self.altitude
         self.altitude = sensors.get('altitude')
-        if self.__get_height_if_cut() >= self.HEIGHT_GOAL :
+        if self.__get_height_if_cut__(sensors) >= self.HEIGHT_GOAL :
             self.thrust=0
 
-    def __get_height_if_cut(self):
-        v = self.__get_velocity__()
-        t = v/scipy.g
-        return -scipy.g/2.0*(t**2)+v*t+self.altitude
+    def __get_height_if_cut__(self, sensors):
+        v = self.__get_velocity__(sensors)
+        t = v / scipy.g
+        return -scipy.g / 2.0 * (t ** 2) + v * t + self.altitude
 
-    def __get_velocity__(self):
+    def __get_velocity__(self, sensors):
         velocity_sum=0
         for i in range(1,len(self.velocities)):
             self.velocities[i-1] = self.velocities[i]
             velocity_sum += self.velocities[i]
-        self.velocities[len(self.velocities)-1]=(self.altitude-self.last_altitude)/self.__get_dt()
+        self.velocities[len(self.velocities)-1] = (self.altitude - self.last_altitude) / \
+                self.__get_dt__(sensors)
         velocity_sum += self.velocities[len(self.velocities)-1]
         return velocity_sum/len(self.velocities)
 
-    def __get_dt(self,sensors):
+    def __get_dt__(self, sensors):
         if self.simulated:
-            self.dt = sensors.get(dt,0.0)
-            return
+            self.dt = sensors.get('dt', 0.0)
+            return self.dt
         if self.first_update:
             self.first_update = False
             self.dt=0.0
@@ -50,6 +51,8 @@ class Rocket:
             self.time_last=self.time
             self.time = time.perf_counter()
             self.dt = self.time - self.time_last
+
+        return self.dt
 
     def get_thrust(self):
         return self.thrust
