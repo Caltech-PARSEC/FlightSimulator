@@ -49,6 +49,7 @@ class Simulator:
     def update_altitude(self):
         self.altitude = self.altitudes[-1] + self.velocity * self.dt
         self.altitudes.append(self.altitude)
+        self.sensors['altitudes'] = self.altitude
 
     def update_velocity(self, thrust, air_density, area):
         drag = area * self.rocket_drag_coef * air_density * (self.velocity ** 2) / 2
@@ -68,5 +69,7 @@ class Simulator:
         self.update_velocity(thrust, self.air_density, self.cross_area)
         self.update_altitude()
 
+        print(f'velocity: {self.velocity}, alt: {self.altitude}')
+
     def done(self):
-        return False
+        return self.velocity < 0
