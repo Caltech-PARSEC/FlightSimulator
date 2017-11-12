@@ -39,7 +39,6 @@ class Simulator:
     def get_fuel_remaining(self):
         fuel_remaining = velocities[len(velocities)] - self.get_fuel_rate(dt) * self.dt
         velocities.append(fuel_remaining) 
-        return fuelRemaining
 
     def get_altitude(self):
         return altitudes[len(altitudes)]
@@ -67,7 +66,13 @@ class Simulator:
         '''
         # update sensor data
 
+        # Move forward one time unit
+        self.time += self.dt
+
         self.update_velocity(thrust, self.air_density, self.cross_area)
+        self.update_altitude(self.time)
+        
+        print(f'time: {self.time}, velocity: {self.velocity}, alt: {self.altitude}')
 
     def done(self):
         return False
