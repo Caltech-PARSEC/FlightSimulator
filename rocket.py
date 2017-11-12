@@ -25,7 +25,7 @@ class Rocket:
 
         Arguments:
             sensors: A dictionary contianing the key 'altitude'.
-        Return value: None
+        Return value: None.
         '''
 
         self.last_altitude=self.altitude
@@ -40,7 +40,7 @@ class Rocket:
 
         Arguments:
             sensors: A dictionary containing the key 'dt' for a small time change.
-        Return value: A float representing the estimated max hieght if thrust = 0
+        Return value: A float representing the estimated max hieght if thrust = 0.
         '''
 
         v = self.__get_velocity__(sensors)
@@ -48,10 +48,28 @@ class Rocket:
         return -constants.g / 2.0 * (t ** 2) + v * t + self.altitude
 
     def __get_velocity__(self, sensors):
-        velocity_sum=0
-        for i in range(1,len(self.velocities)):
+        '''
+        Finds and returns the velocity of the rocket. The last 'VELOCITY_AVERAGING_NUMBER' 
+        velocities are kept track of and the current velocity is calculated by dividing the
+        difference in altitude where it was one 'dt' before and what altitude it is at now
+        by the time difference, 'dt'. However, the averge of the last 'VELOCITY_AVERAGING_NUMBER'
+        velocities is returned, not the one calculated using differnce in height divided by 
+        difference in time.
+
+        Arguments:
+            sensors: A dictionary containing the key 'dt' for a small time change.
+        Return value: A float representing the velocity of the rocket.
+        '''
+
+        # Variable to keep track of the sum of the last 'VELOCITY_AVERAGING_NUMBER' velocities
+        velocity_sum = 0
+
+        for i in range(1, len(self.velocities)):
+            # Move each stored velocity one place back in the list and update the sum
             self.velocities[i-1] = self.velocities[i]
             velocity_sum += self.velocities[i]
+
+        # Calculate the current velocity using change in distance divided by change in time
         self.velocities[len(self.velocities)-1] = (self.altitude - self.last_altitude) / \
                 self.__get_dt__(sensors)
         velocity_sum += self.velocities[len(self.velocities)-1]
