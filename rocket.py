@@ -20,7 +20,7 @@ class Rocket:
 
     def update(self, sensors):
         self.last_altitude=self.altitude
-        self.altitude = sensors.get(altitude)
+        self.altitude = sensors.get('altitude')
         if self.__get_height_if_cut() >= self.HEIGHT_GOAL :
             self.thrust=0
 
