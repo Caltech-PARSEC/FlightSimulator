@@ -72,10 +72,24 @@ class Rocket:
         # Calculate the current velocity using change in distance divided by change in time
         self.velocities[len(self.velocities)-1] = (self.altitude - self.last_altitude) / \
                 self.__get_dt__(sensors)
+
+        # Add the current velocity to the list of velocities
         velocity_sum += self.velocities[len(self.velocities)-1]
-        return velocity_sum/len(self.velocities)
+
+        # Return the average velocity of those kept track of
+        return velocity_sum / len(self.velocities)
 
     def __get_dt__(self, sensors):
+        '''
+        Returns 'dt', which is the time (in seconds) between calls to the update function. If 
+        the rocket is being simulated, 'dt' is retrieved from a dictionary passed as the argument
+        or set to 0.0 if the dictionary does not contain the key 'dt'.
+
+        Arguments:
+            sensors: A dictionary which may contain the key 'dt'.
+        Return value: A float representing 'dt'.
+        '''
+
         if self.simulated:
             self.dt = sensors.get('dt', 0.0)
             return self.dt
@@ -91,4 +105,10 @@ class Rocket:
         return self.dt
 
     def get_thrust(self):
+        '''
+        Arguments:
+            None
+        Return value: A float representing the rocket's thrust.
+        '''
+
         return self.thrust
