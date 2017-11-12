@@ -43,7 +43,7 @@ class Simulator:
             fuelRemaining -= self.get_fuel_rate(interval) * self.dt
             if fuelRemaining <= 0:
                 print("Out of fuel at height:" + str(self.get_altitude(interval)))
-                return
+                return 0
         return fuelRemaining
 
     def get_altitude(self, time):
@@ -58,10 +58,8 @@ class Simulator:
         self.altitude = self.launch_altitude + self.velocity * time
 
     def update_velocity(self, thrust, air_density, area):
-        g = 9.8 
-        drag = area * self.rocket_drag_coeff * air_density * \
-               (self.velocity ** 2) / 2
-        f_grav = self.mass * g
+        drag = area * self.rocket_drag_coeff * air_density * (self.velocity ** 2) / 2
+        f_grav = self.mass * 9.8
 
         delta_v = (thrust - drag - f_grav) * self.dt / self.mass
         self.velocity += delta_v
