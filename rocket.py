@@ -1,5 +1,5 @@
 import time
-import scipy
+import scipy.constants as constants
 
 class Rocket:
     """
@@ -26,8 +26,8 @@ class Rocket:
 
     def __get_height_if_cut__(self, sensors):
         v = self.__get_velocity__(sensors)
-        t = v / scipy.g
-        return -scipy.g / 2.0 * (t ** 2) + v * t + self.altitude
+        t = v / constants.g
+        return -constants.g / 2.0 * (t ** 2) + v * t + self.altitude
 
     def __get_velocity__(self, sensors):
         velocity_sum=0
