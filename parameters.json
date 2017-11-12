@@ -1,15 +1,15 @@
 {
   "launch_altitude": 0,
-  "launch_mass": 1000,
-  "propellent_mass": 0,
+  "launch_mass": 100,
+  "propellent_mass": 500,
 
   "cross_area": 1,
   "air_density": 1.225,
   
-  "rocket_drag_coef": 0,
-  "parachute_drag_coef": 0,
+  "rocket_drag_coef": 0.5,
+  "parachute_drag_coef": 1,
 
-  "parachute_area": 0,
+  "parachute_area": 10,
   "dt": 0.2
   
 }
