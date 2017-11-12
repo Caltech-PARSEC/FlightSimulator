@@ -4,12 +4,12 @@ import json
 
 class Simulator:
     def __init__(self, param_file='parameters.json'):
-		#initialize self.sensors here
+	    #'''initialize self.sensors here based on values in the parameters.json file'''
         
         self.load_data(param_file)
 
     def load_data(self, param_file):
-        # In order to make sure to look for parameters file in current directory 
+        ''' Sets path to look for parameters file in current directory''' 
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         
         with open(os.path.join(__location__,param_file), 'r') as inputf:
@@ -37,23 +37,29 @@ class Simulator:
         self.sensors = {'altitude': self.altitude, 'dt': self.dt}
 
     def get_fuel_remaining(self):
-
+        '''returns the next fuel remaining amount '''
         fuel_remaining = self.fuel[-1] - self.get_fuel_rate(dt) * self.dt
         self.fuel.append(fuel_remaining)
         return fuel_remaining 
 
     def get_altitude(self):
+        ''' Returns current altitude by retrieving from the altitudes list'''
         return self.altitudes[len(self.altitudes)]
 
     def get_fuel_rate(self, time):
+        '''Returns current fuel rate'''
         return 5
 
     def update_altitude(self):
+        '''Updates the altitude for time interval dt with current velocity. Adds current altitude to the
+        altitudes list, and to the sensors dictionary'''
+
         self.altitude = self.altitudes[-1] + self.velocity * self.dt
         self.altitudes.append(self.altitude)
         self.sensors['altitudes'] = self.altitude
 
     def update_velocity(self, thrust, air_density, area):
+        '''Updates the velocity of the rocket for time interval dt'''
         drag = area * self.rocket_drag_coef * air_density * (self.velocity ** 2) / 2
         f_grav = self.mass * 9.8
 
