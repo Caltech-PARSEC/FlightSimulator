@@ -25,7 +25,7 @@ class Simulator:
         self.altitude = self.launch_altitude
         self.altitudes = [self.altitude]
         self.acceleration = 0
-        
+        self.fuel = [self.initial_fuel]
 
         self.max_altitude = 0 
         self.max_velocity = 0
@@ -37,8 +37,9 @@ class Simulator:
         self.sensors = {'altitude': self.altitude, 'dt': self.dt}
 
     def get_fuel_remaining(self):
-        fuel_remaining = self.velocities[-1] - self.get_fuel_rate(dt) * self.dt
-        self.velocities.append(fuel_remaining)
+
+        fuel_remaining = self.fuel[-1] - self.get_fuel_rate(dt) * self.dt
+        self.fuel.append(fuel_remaining)
         return fuel_remaining 
 
     def get_altitude(self):
