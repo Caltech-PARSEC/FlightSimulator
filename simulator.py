@@ -9,9 +9,6 @@ class Simulator:
         self.load_data(param_file)
 
     def load_data(self, param_file):
-        
-        
-        
         # In order to make sure to look for parameters file in current directory 
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         
@@ -50,7 +47,6 @@ class Simulator:
         self.update_altitude(time)
         return self.altitude
 
-
     def get_fuel_rate(self, time):
         return 5
 
@@ -58,7 +54,7 @@ class Simulator:
         self.altitude = self.launch_altitude + self.velocity * time
 
     def update_velocity(self, thrust, air_density, area):
-        drag = area * self.rocket_drag_coeff * air_density * (self.velocity ** 2) / 2
+        drag = area * self.rocket_drag_coef * air_density * (self.velocity ** 2) / 2
         f_grav = self.mass * 9.8
 
         delta_v = (thrust - drag - f_grav) * self.dt / self.mass
@@ -68,8 +64,12 @@ class Simulator:
         return self.sensors
 
     def update(self, thrust):
-        #update sensor data
-        pass
+        '''
+        Update the sensor data and the rocket's attributes.
+        '''
+        # update sensor data
+
+        self.update_velocity(thrust, self.air_density, self.cross_area)
 
     def done(self):
         return False
