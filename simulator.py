@@ -41,14 +41,14 @@ class Simulator:
         velocities.append(fuel_remaining) 
 
     def get_altitude(self):
-        return altitudes[len(altitudes)]
+        return self.altitudes[len(self.altitudes)]
 
     def get_fuel_rate(self, time):
         return 5
 
     def update_altitude(self):
-        self.altitude = altitudes[len(altitudes)] + self.velocity * self.dt
-        altitudes.append(self.altitude)
+        self.altitude = self.altitudes[-1] + self.velocity * self.dt
+        self.altitudes.append(self.altitude)
 
     def update_velocity(self, thrust, air_density, area):
         drag = area * self.rocket_drag_coef * air_density * (self.velocity ** 2) / 2
@@ -64,15 +64,9 @@ class Simulator:
         '''
         Update the sensor data and the rocket's attributes.
         '''
-        # update sensor data
-
-        # Move forward one time unit
-        self.time += self.dt
 
         self.update_velocity(thrust, self.air_density, self.cross_area)
-        self.update_altitude(self.time)
-        
-        print(f'time: {self.time}, velocity: {self.velocity}, alt: {self.altitude}')
+        self.update_altitude()
 
     def done(self):
         return False
