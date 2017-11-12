@@ -4,7 +4,7 @@ import json
 
 class Simulator:
     def __init__(self, param_file='parameters.json'):
-		'''initialize self.sensors here based on values in the parameters.json file'''
+	    #'''initialize self.sensors here based on values in the parameters.json file'''
         
         self.load_data(param_file)
 
