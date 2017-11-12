@@ -2,7 +2,7 @@ from rocket import Rocket
 from simulator import Simulator
 
 def main():
-    rocket = Rocket()
+    rocket = Rocket(True)
     simulator = Simulator()
 
     while not simulator.done():
